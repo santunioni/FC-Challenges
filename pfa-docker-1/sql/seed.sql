@@ -1,3 +1,4 @@
+SET NAMES 'utf8';
 -- CREATE USER 'developer'@'localhost' IDENTIFIED WITH mysql_native_password BY 'lalalal12312424TESTE';
 -- GRANT SELECT ON FullCycle.* TO 'developer'@'localhost' WITH GRANT OPTION;
 CREATE USER 'developer'@'%' IDENTIFIED WITH mysql_native_password BY 'lalalal12312424TESTE';
