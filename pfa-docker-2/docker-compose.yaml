@@ -1,0 +1,46 @@
+services:
+
+  mysql:
+    image: mysql:5.7
+    container_name: santunioni_mysql
+    env_file: app/database.env
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=TRUE
+    volumes:
+      - ./mysql/dbdata:/var/lib/mysql
+      - ./mysql/migration:/docker-entrypoint-initdb.d
+    networks:
+      - database
+
+  node:
+    build:
+      context: app/
+      dockerfile: app.dockerfile
+    image: santunioni/fc_node_app:latest
+    container_name: santunioni_app
+    entrypoint: dockerize -wait tcp://mysql:3306 -timeout 300s -wait-retry-interval 5s node index.js
+    env_file: app/database.env
+    environment:
+      - MYSQL_LINK=santunioni_mysql
+    depends_on:
+      - mysql
+    networks:
+      - database
+      - application
+
+  nginx:
+    build:
+      context: nginx/
+      dockerfile: nginx.dockerfile
+    container_name: santunioni_nginx
+    restart: always
+    ports:
+      - 8000:80
+    depends_on:
+      - node
+    networks:
+      - application
+
+networks:
+  database:
+  application:
