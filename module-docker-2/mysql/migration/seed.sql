@@ -1,0 +1,8 @@
+SET NAMES 'utf8';
+
+CREATE TABLE `People` (
+  `ID` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `Name` VARCHAR(80) NOT NULL
+);
+
+INSERT INTO People (Name) VALUES ("Ana Júlia");

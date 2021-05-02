@@ -1,0 +1,9 @@
+doctype html
+html(lang='en')
+ head
+   title Full Cycle Rocks!
+ body
+   h1 Full Cycle Rocks!
+   ul
+     each val in people.length ? people : ['There are no names registered yet!']
+       li= val
